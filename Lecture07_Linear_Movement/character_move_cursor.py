@@ -13,6 +13,14 @@ character = load_image('animation_sheet.png')
 def character_move(cx, cy):
     global x, y, i
     global arrive
+    global character_left, character_right
+
+    if cx < x:
+        character_left = True
+        character_right = False
+    elif cx > x:
+        character_left = False
+        character_right = True
 
     t = i / 100
     x = (1 - t) * x + t * cx
@@ -35,6 +43,7 @@ def handle_events():
             running = False
 
 
+character_left, character_right = False, True
 arrive, running = False, True
 x, y = 0, 0
 cx, cy = random.randint(-400, 400), random.randint(-400, 400)
@@ -53,16 +62,14 @@ while running:
 
     character_move(cx, cy)
 
-    # if character_left:
-    #     character.clip_composite_draw(frame * 100, 100 * 1, 100, 100, x, y)
-    # elif character_right:
-    #     character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
-
     cursor.clip_draw(0, 0, 50, 52, cx, cy)
-    character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
+
+    if character_left:
+        character.clip_composite_draw(frame * 100, 100 * 1, 100, 100, 0, 'h', x, y, 100, 100)
+    elif character_right:
+        character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
 
     frame = (frame + 1) % 8
-
 
     handle_events()
     update_canvas()
