@@ -46,7 +46,7 @@ def handle_events():
 character_left, character_right = False, True
 arrive, running = False, True
 x, y = 0, 0
-cx, cy = random.randint(-400, 400), random.randint(-400, 400)
+cx, cy = random.randint(0, TUK_WIDTH), random.randint(0, TUK_HEIGHT)
 i = 100
 frame = 0
 hide_cursor()
@@ -57,7 +57,7 @@ while running:
 
     if arrive:
         arrive = False
-        cx, cy = random.randint(0, 1280), random.randint(0, 1024)
+        cx, cy = random.randint(0, TUK_WIDTH), random.randint(0, TUK_HEIGHT)
         i = 0
 
     character_move(cx, cy)
